@@ -4,25 +4,62 @@
     <title>My App</title>
   </head>
   <body>
-    <h1>Adicionar novo usuário</h1>
+    <h1>Adicionar Novo Usuário</h1>
     <form action="/new_user" method="post">
         <label for="name">Nome:</label><br>
         <input type="text" id="name" name="name" required><br>
+
         <label for="email">Email:</label><br>
-        <input type="text" id="email" name="email" required><br>
+        <input type="email" id="email" name="email" required><br>
+
         <label for="password">Senha:</label><br>
-        <input type="text" id="password" name="password" required><br>
-        <label for="address">Endereço:</label><br>
-        <input type="text" id="address" name="address" required><br><br>
+        <input type="password" id="password" name="password" required><br>
+
+        <h3>Endereço Principal</h3>
+        <label for="street">Rua:</label><br>
+        <input type="text" id="street" name="street" required><br>
+
+        <label for="number">Número:</label><br>
+        <input type="text" id="number" name="number" required><br>
+
+        <label for="complement">Complemento:</label><br>
+        <input type="text" id="complement" name="complement"><br>
+
+        <label for="zip_code">CEP:</label><br>
+        <input type="text" id="zip_code" name="zip_code" required><br>
+
+        <label for="city">Cidade:</label><br>
+        <input type="text" id="city" name="city" required><br>
+
+        <label for="state">Estado:</label><br>
+        <input type="text" id="state" name="state" required><br><br>
+
         <button type="submit">Criar Novo Usuário</button>
     </form>
 
-    <h1>Adicionar novo endereço</h1>
+    <h1>Adicionar Novo Endereço</h1>
     <form action="/new_address" method="post">
-        <label for="address">Endereço:</label><br>
-        <input type="text" id="address" name="address" required><br>
-        <label for="name">Nome do usuário:</label><br>
-        <input type="text" id="name" name="name" required><br><br>
+        <label for="name">Nome do Usuário:</label><br>
+        <input type="text" id="name" name="name" required><br>
+
+        <label for="street">Rua:</label><br>
+        <input type="text" id="street" name="street" required><br>
+
+        <label for="number">Número:</label><br>
+        <input type="text" id="number" name="number" required><br>
+
+        <label for="complement">Complemento:</label><br>
+        <input type="text" id="complement" name="complement"><br>
+
+        <label for="zip_code">CEP:</label><br>
+        <input type="text" id="zip_code" name="zip_code" required><br>
+
+        <label for="city">Cidade:</label><br>
+        <input type="text" id="city" name="city" required><br>
+
+        <label for="state">Estado:</label><br>
+        <input type="text" id="state" name="state" required><br><br>
+
         <button type="submit">Adicionar Novo Endereço</button>
     </form>
 
@@ -32,10 +69,18 @@
             <li><strong>ID:</strong> {{ user.id }}</li>
             <li><strong>Nome:</strong> {{ user.name }}</li>
             <li><strong>Email:</strong> {{ user.email }}</li>
-            <li><strong>Endereços:</strong></li>
+
+            <li><strong>Endereço Principal:</strong></li>
+            <ul>
+                <li>{{ user.street }}, {{ user.number }} - {{ user.complement or "N/A" }}, {{ user.city }}/{{ user.state }} - CEP: {{ user.zip_code }}</li>
+            </ul>
+
+            <li><strong>Endereços Adicionais:</strong></li>
             <ul>
                 {% for address in user.addresses %}
-                    <li>{{ address.address }}</li>
+                    <li>{{ address.street }}, {{ address.number }} - {{ address.complement or "N/A" }}, {{ address.city }}/{{ address.state }} - CEP: {{ address.zip_code }}</li>
+                {% else %}
+                    <li>Sem endereços adicionais cadastrados.</li>
                 {% endfor %}
             </ul>
             <hr>
