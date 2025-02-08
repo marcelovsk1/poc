@@ -92,6 +92,21 @@ def create_address():
     
     return redirect('/')
 
+# CRUD - DELETE (Remover usuário e endereços)
+@app.route('/delete_user/<int:user_id>', methods=['POST'])
+def delete_user(user_id):
+    user = Users.query.get(user_id)
+    db.session.delete(user)
+    db.session.commit()
+    return redirect('/')
+
+@app.route('/delete_address/<int:address_id>', methods=['POST'])
+def delete_address(address_id):
+    address = Addresses.query.get(address_id)
+    db.session.delete(address)
+    db.session.commit()
+    return redirect('/')
+
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()  # Criar ou atualizar as tabelas
