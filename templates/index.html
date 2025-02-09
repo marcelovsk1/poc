@@ -6,20 +6,31 @@
       /* Fundo geral da página */
       body {
         font-family: "Tahoma", sans-serif;
-        background: linear-gradient(to bottom, #134837, #b4d3f0);
+        background-image: url("https://www.windowslatest.com/wp-content/uploads/2024/10/Windows-XP-4K-modified-scaled.jpg");
+        background-size: cover; 
+        background-position: center; 
+        background-repeat: no-repeat; 
         margin: 0;
-        padding: 20px;
+        padding: 100px;
         color: #000;
       }
 
-      /* Estilo dos títulos */
-      h1 {
-        background-color: #3a6ea5;
-        color: white;
-        padding: 10px;
+      .container {
+        display: flex;
+        gap: 25px; 
+        justify-content: space-between; 
+        padding: 20px;
         border-radius: 8px;
+      }
+
+      h1 {
+        font-size: 18px;
+        color: white;
+        background: linear-gradient(to bottom, #3a6ea5, #2a4e7a);
+        padding: 5px 10px;
+        border-radius: 4px 4px 0 0;
         text-align: center;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        box-shadow: inset 0 1px #ffffff, 0 2px 5px #00000055;
       }
 
       h3 {
@@ -27,14 +38,14 @@
         color: #3a6ea5;
       }
 
-      /* Container de formulários */
-      form {
-        background-color: #ffffff;
-        border: 1px solid #a9a9a9;
-        border-radius: 10px;
-        padding: 20px;
-        margin-bottom: 20px;
-        box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+      #form, ul {
+        background: linear-gradient(to bottom, #e4e4e4, #ffffff);
+        border: 4px solid #a6a6a6;
+        border-radius: 4px;
+        /* box-shadow: 2px 2px 8px #00000055; */
+        padding: 15px;
+        margin-bottom: -20px;
+        list-style: none;
       }
 
       label {
@@ -42,7 +53,7 @@
         color: #000;
       }
 
-      input, button {
+      input, .submit {
         font-family: "Tahoma", sans-serif;
         margin: 5px 0;
         padding: 8px;
@@ -59,39 +70,39 @@
       }
 
       button {
-        background-color: #3a6ea5;
-        color: white;
-        font-size: 14px;
+        background: linear-gradient(to bottom, #ffffff, #d6d6d6);
+        border: 1px solid #828282;
+        padding: 5px 10px;
         cursor: pointer;
-        border: none;
+        font-size: 13px;
+        font-weight: bold;
+        color: #000;
+        border-radius: 2px;
+        box-shadow: inset 0 1px #ffffff, 1px 1px 3px #00000033;
       }
 
       button:hover {
         background-color: #2d5894;
       }
 
-      /* Estilo da lista de usuários */
-      ul {
-  list-style-type: none; /* Remove os marcadores padrão */
-  padding: 0;
-}
+      /* ul {
+        list-style-type: none;
+        padding: 10px;
+        background-color: #f1f1f1;
+      } */
 
-li {
-  display: flex; /* Organiza o conteúdo em linha */
-  justify-content: space-between; /* Botão "Deletar" vai para o canto direito */
-  align-items: center; /* Alinha verticalmente o texto e o botão */
-  background-color: #f9f9f9; /* Fundo claro para destaque */
-  padding: 10px;
-  margin-bottom: 5px;
-  border-radius: 5px;
-  border: 1px solid #ddd; /* Borda discreta */
-}
+      li {
+        margin-bottom: 5px;
+        font-size: 14px;
+      }
 
       ul ul {
         background-color: #f1f1f1;
         padding: 10px;
         border: 1px solid #a9a9a9;
-        border-radius: 8px;
+        /* border-radius: 8px; */
+        margin-top: 10px;
+        margin-bottom: 10px;
       }
 
       hr {
@@ -99,98 +110,183 @@ li {
         border-top: 1px solid #a9a9a9;
         margin: 20px 0;
       }
+
+      .delete {
+        background: #ff0000;
+        margin: 10px 0;
+        /* background: #3a6ea5; */
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 3px;
+        cursor: pointer;
+      } 
+
+      .delete:hover {
+        background-color: #ba1916;
+      }
+
+      #delete-form {
+        display: inline;
+        background-color: none;
+        box-shadow: none;
+      }
+
+      .hidden-form {
+        display: none; 
+      }
+
+      .visible-form {
+        display: block; 
+      }
+
+      .edit-button {
+        margin: 10px 0;
+        background: #3a6ea5;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 3px;
+        cursor: pointer;
+      }
+
+      .edit-button:hover {
+        background-color: #2d5894;
+      }
+
+      .footer-btn {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
     </style>
   </head>
   <body>
-    <h1>Adicionar Novo Usuário</h1>
-    <form action="/new_user" method="post">
-        <label for="name">Nome:</label>
-        <input type="text" id="name" name="name" required>
+    <body>
+      <div class="container">
 
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
-
-        <label for="password">Senha:</label>
-        <input type="password" id="password" name="password" required>
+        <!-- NEW USER FORM -->
+        <form action="/new_user" method="post" id="form">
+          <h1>Adicionar Novo Usuário</h1>
+          <label for="name">Nome:</label>
+          <input type="text" id="name" name="name" required>
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" required>
+          <label for="password">Senha:</label>
+          <input type="password" id="password" name="password" required>
+    
+          <h3>Endereço Principal</h3>
+          <label for="street">Rua:</label>
+          <input type="text" id="street" name="street" required>
+          <label for="number">Número:</label>
+          <input type="text" id="number" name="number" required>
+          <label for="complement">Complemento:</label>
+          <input type="text" id="complement" name="complement">
+          <label for="zip_code">CEP:</label>
+          <input type="text" id="zip_code" name="zip_code" required>
+          <label for="city">Cidade:</label>
+          <input type="text" id="city" name="city" required>
+          <label for="state">Estado:</label>
+          <input type="text" id="state" name="state" required>
+          <button class="submit" type="submit">Criar Novo Usuário</button>
+        </form>
         
+        <!-- NEW ADDRESS FORM -->
+        <form action="/new_address" method="post" id="form">
+          <h1>Adicionar Novo Endereço</h1>
 
-        <h3>Endereço Principal</h3>
-        <label for="street">Rua:</label>
-        <input type="text" id="street" name="street" required>
+          <label for="name">Nome do Usuário:</label>
+          <input type="text" id="name" name="name" required>
 
-        <label for="number">Número:</label>
-        <input type="text" id="number" name="number" required>
+          <label for="street">Rua:</label>
+          <input type="text" id="street" name="street" required>
 
-        <label for="complement">Complemento:</label>
-        <input type="text" id="complement" name="complement">
+          <label for="number">Número:</label>
+          <input type="text" id="number" name="number" required>
 
-        <label for="zip_code">CEP:</label>
-        <input type="text" id="zip_code" name="zip_code" required>
+          <label for="complement">Complemento:</label>
+          <input type="text" id="complement" name="complement">
 
-        <label for="city">Cidade:</label>
-        <input type="text" id="city" name="city" required>
+          <label for="zip_code">CEP:</label>
+          <input type="text" id="zip_code" name="zip_code" required>
 
-        <label for="state">Estado:</label>
-        <input type="text" id="state" name="state" required>
+          <label for="city">Cidade:</label>
+          <input type="text" id="city" name="city" required>
 
-        <button type="submit">Criar Novo Usuário</button>
-    </form>
+          <label for="state">Estado:</label>
+          <input type="text" id="state" name="state" required>
 
-    <h1>Adicionar Novo Endereço</h1>
-    <form action="/new_address" method="post">
-        <label for="name">Nome do Usuário:</label>
-        <input type="text" id="name" name="name" required>
+          <!-- Checkbox para definir endereço como principal -->
+          <label for="is_main">
+            <input type="checkbox" id="is_main" name="is_main"> Definir como endereço principal
+          </label>
 
-        <label for="street">Rua:</label>
-        <input type="text" id="street" name="street" required>
+          <button class="submit" type="submit">Adicionar Novo Endereço</button>
+        </form>
 
-        <label for="number">Número:</label>
-        <input type="text" id="number" name="number" required>
+      </div>
 
-        <label for="complement">Complemento:</label>
-        <input type="text" id="complement" name="complement">
-
-        <label for="zip_code">CEP:</label>
-        <input type="text" id="zip_code" name="zip_code" required>
-
-        <label for="city">Cidade:</label>
-        <input type="text" id="city" name="city" required>
-
-        <label for="state">Estado:</label>
-        <input type="text" id="state" name="state" required>
-
-        <button type="submit">Adicionar Novo Endereço</button>
-    </form>
-
-    <h1>Usuários Cadastrados</h1>
-    <ul>
+      <!-- USER FORMS -->
+      <ul>
+        <h1>Usuários Cadastrados</h1>
         {% for user in users %}
-            <li><strong>ID:</strong> {{ user.id }}</li>
-            <li><strong>Nome:</strong> {{ user.name }}</li>
-            <li><strong>Email:</strong> {{ user.email }}</li>
-
-            <li><strong>Endereço Principal:</strong></li>
-            <ul>
-                <li>{{ user.street }}, {{ user.number }} - {{ user.complement or "N/A" }}, {{ user.city }}/{{ user.state }} - CEP: {{ user.zip_code }}</li>
-            </ul>
-
-            <li><strong>Endereços Adicionais:</strong></li>
-            <ul>
-              {% for address in user.addresses %}
-                  <li>
-                      {{ address.street }}, {{ address.number }} - {{ address.complement or "N/A" }}, {{ address.city }}/{{ address.state }} - CEP: {{ address.zip_code }}
-                      <form action="/delete_address/{{ address.id }}" method="post" style="display: inline;">
-                          <button type="submit">Deletar</button>
-                      </form>
-                  </li>
-              {% else %}
-                  <li>Sem endereços adicionais cadastrados.</li>
-              {% endfor %}
-          </ul>          
-            <hr>
+        <li><strong>ID:</strong> {{ user.id }}</li>
+        <li><strong>Nome:</strong> {{ user.name }}</li>
+        <li><strong>Email:</strong> {{ user.email }}</li>
+        <li><strong>Endereço Principal:</strong></li>
+        <ul>
+            <li>{{ user.street }}, {{ user.number }} - {{ user.complement or "N/A" }}, {{ user.city }}/{{ user.state }} - CEP: {{ user.zip_code }}</li>
+        </ul>
+        
+        <li><strong>Endereços Adicionais:</strong></li>
+        <ul>
+            {% for address in user.addresses if not address.is_main %}
+                <li>
+                    {{ address.street }}, {{ address.number }} - {{ address.complement or "N/A" }}, {{ address.city }}/{{ address.state }} - CEP: {{ address.zip_code }}
+                    <form action="/set_primary_address/{{ address.id }}" method="post" style="display: inline;">
+                        <button class="edit-button" type="submit">Tornar Principal</button>
+                    </form>
+                    <form action="/delete_address/{{ address.id }}" method="post" style="display: inline;">
+                        <button class="delete" type="submit">Deletar</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+        <hr>
+        <form action="/update_user/{{ user.id }}" method="post" id="form-user-{{ user.id }}" class="hidden-form">
+          <label for="name">Nome:</label>
+          <input type="text" id="name" name="name" value="{{ user.name }}" required>
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" value="{{ user.email }}" required>
+          <label for="password">Senha:</label>
+          <input type="password" id="password" name="password" value="{{ user.password }}" required>
+          <h3>Endereço Principal</h3>
+          <label for="street">Rua:</label>
+          <input type="text" id="street" name="street" value="{{ user.street }}" required>
+          <label for="number">Número:</label>
+          <input type="text" id="number" name="number" value="{{ user.number }}" required>
+          <label for="complement">Complemento:</label>
+          <input type="text" id="complement" name="complement" value="{{ user.complement }}">
+          <label for="zip_code">CEP:</label>
+          <input type="text" id="zip_code" name="zip_code" value="{{ user.zip_code }}" required>
+          <label for="city">Cidade:</label>
+          <input type="text" id="city" name="city" value="{{ user.city }}" required>
+          <label for="state">Estado:</label>
+          <input type="text" id="state" name="state" value="{{ user.state }}" required>
+          <button type="submit">Salvar Alterações</button>
+        </form>
+        <div class="footer-btn">
+          <button class="edit-button" onclick="toggleForm('form-user-{{ user.id }}')">Editar Usuário</button>
+          <form action="/delete_user/{{ user.id }}" method="post" class="inline-form">
+            <button class="delete-button" type="submit">Deletar Usuário</button>
+          </form>
+        </div>
+        <hr>
         {% endfor %}
-    </ul>
-  </body>
+      </ul>
+    </body>
+    
 </html>
 
 <script>
@@ -206,6 +302,17 @@ li {
     // Remove tudo que não for número
     campo.value = campo.value.replace(/\D/g, "")
                              .replace(/(\d{5})(\d)/, "$1-$2");
+  }
+
+  function toggleForm(formId) {
+    const form = document.getElementById(formId);
+    if (form.classList.contains('hidden-form')) {
+      form.classList.remove('hidden-form');
+      form.classList.add('visible-form');
+    } else {
+      form.classList.remove('visible-form');
+      form.classList.add('hidden-form');
+    }
   }
 </script>
 
