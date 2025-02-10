@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Admin - Correios</title>
+    <style>
+        /* Fundo geral da página */
+        body {
+            font-family: "Tahoma", sans-serif;
+            background-image: url("https://www.windowslatest.com/wp-content/uploads/2024/10/Windows-XP-4K-modified-scaled.jpg");
+            background-size: cover; 
+            background-position: center; 
+            background-repeat: no-repeat; 
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Garante que ocupe toda a tela */
+        }
+
+        /* Modal de cadastro */
+        .register-container {
+            background: linear-gradient(to bottom, #e4e4e4, #ffffff);
+            border: 4px solid #a6a6a6;
+            border-radius: 8px;
+            padding: 20px;
+            width: 350px;
+            text-align: center;
+            box-shadow: 3px 3px 10px #00000055;
+        }
+
+        .register-container h1 {
+            font-size: 18px;
+            color: white;
+            background: linear-gradient(to bottom, #3a6ea5, #2a4e7a);
+            padding: 10px;
+            border-radius: 4px 4px 0 0;
+            text-align: center;
+            box-shadow: inset 0 1px #ffffff, 0 2px 5px #00000055;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-size: 14px;
+            color: #000;
+            display: block;
+            text-align: left;
+            margin-bottom: 5px;
+        }
+
+        input {
+            font-family: "Tahoma", sans-serif;
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #a9a9a9;
+            border-radius: 5px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        input:focus {
+            outline: none;
+            border: 1px solid #3a6ea5;
+            box-shadow: 0 0 5px rgba(58, 110, 165, 0.5);
+        }
+
+        .register-button {
+            background: linear-gradient(to bottom, #ffffff, #d6d6d6);
+            border: 1px solid #828282;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            color: #000;
+            margin-top: 20px;
+            border-radius: 3px;
+            width: 100%;
+            box-shadow: inset 0 1px #ffffff, 1px 1px 3px #00000033;
+        }
+
+        .register-button:hover {
+            background-color: #2d5894;
+            color: rgb(70, 74, 100);
+        }
+
+        .login-link {
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        .login-link a {
+            color: #3a6ea5;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        .logo {
+            width: 200px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="register-container">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Correios_%281990%29.svg/1280px-Correios_%281990%29.svg.png" class="logo" alt="">
+        <form action="/register" method="post">
+            <label for="email">Email (@correios.com):</label>
+            <input type="text" id="email" name="email" required>
+            
+            <label for="password">Senha:</label>
+            <div style="display: flex; align-items: center; border: 1px solid #a9a9a9; border-radius: 5px; width: 100%; overflow: hidden;">
+                <input type="password" id="password" name="password" required style="border: none; flex: 1; padding: 10px; font-size: 14px; box-sizing: border-box;">
+                <button type="button" onclick="togglePassword()" style="background: none; border: none; padding: 0 10px; cursor: pointer;">
+                    <img src="https://cdn-icons-png.flaticon.com/512/159/159604.png" alt="Mostrar senha" style="height: 20px; width: 20px; position: relative;top: -3px;">
+                </button>
+            </div>
+            
+            
+            <button class="register-button" type="submit">Criar Conta</button>
+        </form>
+        <p class="login-link">Já tem uma conta? <a href="/login">Faça login</a></p>
+    </div>
+</body>
+</html>
+
+
+<script>
+    function togglePassword() {
+        const passwordField = document.getElementById("password");
+        if (passwordField.type === "password") {
+            passwordField.type = "text";  
+        } else {
+            passwordField.type = "password";
+        }
+    }
+</script>
+
+

@@ -38,7 +38,7 @@
         color: #3a6ea5;
       }
 
-      #form, ul {
+      #form, #form_new_user, #form_new_address, ul {
         background: linear-gradient(to bottom, #e4e4e4, #ffffff);
         border: 4px solid #a6a6a6;
         border-radius: 4px;
@@ -160,71 +160,128 @@
         align-items: center;
       }
 
+
+      .nav-bar {
+        display: flex;
+        flex-direction: column-reverse;
+        /* justify-content: space-between; */
+        /* align-items: end; */
+        /* background-color: #3a6ea5; */
+        padding: 10px 20px;
+        border-radius: 8px;
+        color: white;
+        /* margin-bottom: 20px; */
+    }
+
+    .nav-bar h1 {
+      margin: 0;
+      font-size: 18px;
+    }
+
+    .nav-bar button {
+      background: #ffffff;
+      color: #3a6ea5;
+      border: none;
+      padding: 5px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .nav-bar button:hover {
+      background-color: #e4e4e4;
+    }
+
+    .logo {
+      width: 500px;
+      margin-right: 10px;
+    }
+
     </style>
   </head>
   <body>
     <body>
+
+      <div class="nav-bar">
+        <h1>
+            <form action="/logout" method="get">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Correios_%281990%29.svg/1280px-Correios_%281990%29.svg.png" class="logo" alt="">
+                <button type="submit">Sair</button>
+              </form>
+        </h1>
+    </div>
+    
+      
       <div class="container">
 
         <!-- NEW USER FORM -->
-        <form action="/new_user" method="post" id="form">
+        <form action="/new_user" method="post" id="form_new_user">
           <h1>Adicionar Novo Usuário</h1>
           <label for="name">Nome:</label>
           <input type="text" id="name" name="name" required>
+      
           <label for="email">Email:</label>
           <input type="email" id="email" name="email" required>
+      
           <label for="password">Senha:</label>
           <input type="password" id="password" name="password" required>
-    
+      
           <h3>Endereço Principal</h3>
+          <label for="cep">CEP:</label>
+          <input type="text" id="cep" name="zip_code" onblur="buscarEndereco(this)" required>
+      
           <label for="street">Rua:</label>
           <input type="text" id="street" name="street" required>
+      
           <label for="number">Número:</label>
           <input type="text" id="number" name="number" required>
+      
           <label for="complement">Complemento:</label>
           <input type="text" id="complement" name="complement">
-          <label for="zip_code">CEP:</label>
-          <input type="text" id="zip_code" name="zip_code" required>
+      
           <label for="city">Cidade:</label>
           <input type="text" id="city" name="city" required>
+      
           <label for="state">Estado:</label>
           <input type="text" id="state" name="state" required>
+      
           <button class="submit" type="submit">Criar Novo Usuário</button>
-        </form>
-        
+       </form>
+      
         <!-- NEW ADDRESS FORM -->
-        <form action="/new_address" method="post" id="form">
+        <form action="/new_address" method="post" id="form_new_address">
           <h1>Adicionar Novo Endereço</h1>
-
+      
           <label for="name">Nome do Usuário:</label>
           <input type="text" id="name" name="name" required>
-
-          <label for="street">Rua:</label>
-          <input type="text" id="street" name="street" required>
-
-          <label for="number">Número:</label>
-          <input type="text" id="number" name="number" required>
-
-          <label for="complement">Complemento:</label>
-          <input type="text" id="complement" name="complement">
-
-          <label for="zip_code">CEP:</label>
-          <input type="text" id="zip_code" name="zip_code" required>
-
-          <label for="city">Cidade:</label>
-          <input type="text" id="city" name="city" required>
-
-          <label for="state">Estado:</label>
-          <input type="text" id="state" name="state" required>
-
-          <!-- Checkbox para definir endereço como principal -->
-          <label for="is_main">
-            <input type="checkbox" id="is_main" name="is_main"> Definir como endereço principal
-          </label>
-
+      
+          <label for="new_address_zip_code">CEP:</label>
+          <input type="text" id="new_address_zip_code" name="zip_code" onblur="buscarEndereco(this)" required>
+      
+          <label for="new_address_street">Rua:</label>
+          <input type="text" id="new_address_street" name="street" required>
+      
+          <label for="new_address_number">Número:</label>
+          <input type="text" id="new_address_number" name="number" required>
+      
+          <label for="new_address_complement">Complemento:</label>
+          <input type="text" id="new_address_complement" name="complement">
+      
+          <label for="new_address_city">Cidade:</label>
+          <input type="text" id="new_address_city" name="city" required>
+      
+          <label for="new_address_state">Estado:</label>
+          <input type="text" id="new_address_state" name="state" required>        
+      
+          <div style="display: flex; align-items: center; flex-direction: column-reverse;">
+              <input type="checkbox" id="is_main" name="is_main" style="margin-right: 5px;">
+              <label for="is_main">Definir como endereço principal</label>
+          </div>
+      
           <button class="submit" type="submit">Adicionar Novo Endereço</button>
-        </form>
-
+      </form>
+      
       </div>
 
       <!-- USER FORMS -->
@@ -241,41 +298,77 @@
         
         <li><strong>Endereços Adicionais:</strong></li>
         <ul>
-            {% for address in user.addresses if not address.is_main %}
-                <li>
-                    {{ address.street }}, {{ address.number }} - {{ address.complement or "N/A" }}, {{ address.city }}/{{ address.state }} - CEP: {{ address.zip_code }}
-                    <form action="/set_primary_address/{{ address.id }}" method="post" style="display: inline;">
-                        <button class="edit-button" type="submit">Tornar Principal</button>
-                    </form>
-                    <form action="/delete_address/{{ address.id }}" method="post" style="display: inline;">
-                        <button class="delete" type="submit">Deletar</button>
-                    </form>
-                </li>
-            {% endfor %}
-        </ul>
+          {% for address in user.addresses if not address.is_main %}
+              <li>
+                  {{ address.street }}, {{ address.number }} - {{ address.complement or "N/A" }}, {{ address.city }}/{{ address.state }} - CEP: {{ address.zip_code }}
+              </li>
+              <form action="/set_primary_address/{{ address.id }}" method="post" style="display: inline;">
+                  <button class="edit-button" type="submit">Tornar Principal</button>
+              </form>
+              <button class="edit-button" onclick="toggleForm('form-address-{{ address.id }}')" style="display: inline;">Editar</button>
+              <form action="/delete_address/{{ address.id }}" method="post" style="display: inline;">
+                  <button class="delete" type="submit">Deletar</button>
+              </form>
+              
+              <!-- Formulário de edição do endereço -->
+              <form action="/update_address/{{ address.id }}" method="post" id="form-address-{{ address.id }}" class="hidden-form">
+                <label for="zip_code">CEP:</label>
+                <input type="text" id="zip_code" name="zip_code" value="{{ address.zip_code }}" onblur="buscarEndereco(this)" required>
+                
+                <label for="street">Rua:</label>
+                <input type="text" id="street" name="street" value="{{ address.street }}" required>
+                
+                <label for="number">Número:</label>
+                <input type="text" id="number" name="number" value="{{ address.number }}" required>
+                
+                <label for="complement">Complemento:</label>
+                <input type="text" id="complement" name="complement" value="{{ address.complement }}">
+                
+                <label for="city">Cidade:</label>
+                <input type="text" id="city" name="city" value="{{ address.city }}" required>
+                
+                <label for="state">Estado:</label>
+                <input type="text" id="state" name="state" value="{{ address.state }}" required>
+                
+                <button type="submit">Salvar Alterações</button>
+            </form>
+            
+          {% endfor %}
+      </ul>
+      
         <hr>
         <form action="/update_user/{{ user.id }}" method="post" id="form-user-{{ user.id }}" class="hidden-form">
           <label for="name">Nome:</label>
           <input type="text" id="name" name="name" value="{{ user.name }}" required>
+          
           <label for="email">Email:</label>
           <input type="email" id="email" name="email" value="{{ user.email }}" required>
+          
           <label for="password">Senha:</label>
           <input type="password" id="password" name="password" value="{{ user.password }}" required>
+          
           <h3>Endereço Principal</h3>
+          <label for="zip_code">CEP:</label>
+          <input type="text" id="zip_code" name="zip_code" value="{{ user.zip_code }}" onblur="buscarEndereco(this)" required>
+          
           <label for="street">Rua:</label>
           <input type="text" id="street" name="street" value="{{ user.street }}" required>
+          
           <label for="number">Número:</label>
           <input type="text" id="number" name="number" value="{{ user.number }}" required>
+          
           <label for="complement">Complemento:</label>
           <input type="text" id="complement" name="complement" value="{{ user.complement }}">
-          <label for="zip_code">CEP:</label>
-          <input type="text" id="zip_code" name="zip_code" value="{{ user.zip_code }}" required>
+          
           <label for="city">Cidade:</label>
           <input type="text" id="city" name="city" value="{{ user.city }}" required>
+          
           <label for="state">Estado:</label>
           <input type="text" id="state" name="state" value="{{ user.state }}" required>
+          
           <button type="submit">Salvar Alterações</button>
-        </form>
+      </form>
+      
         <div class="footer-btn">
           <button class="edit-button" onclick="toggleForm('form-user-{{ user.id }}')">Editar Usuário</button>
           <form action="/delete_user/{{ user.id }}" method="post" class="inline-form">
@@ -290,13 +383,6 @@
 </html>
 
 <script>
-  function mascaraCPF(campo) {
-    // Remove tudo que não for número
-    campo.value = campo.value.replace(/\D/g, "")
-                             .replace(/(\d{3})(\d)/, "$1.$2")
-                             .replace(/(\d{3})(\d)/, "$1.$2")
-                             .replace(/(\d{3})(\d{1,2})$/, "$1-$2");
-  }
 
   function mascaraCEP(campo) {
     // Remove tudo que não for número
@@ -314,5 +400,46 @@
       form.classList.add('hidden-form');
     }
   }
+
+  // Função para buscar o endereço a partir do CEP
+  async function buscarEndereco(input) {
+    const form = input.closest("form");
+    const cepInput = form.querySelector("[name='zip_code']");
+    const streetInput = form.querySelector("[name='street']");
+    const complementInput = form.querySelector("[name='complement']");
+    const cityInput = form.querySelector("[name='city']");
+    const stateInput = form.querySelector("[name='state']");
+
+    const cep = cepInput.value.trim();
+
+    // verifica se o CEP é válido
+    if (cep.length !== 8 || isNaN(cep)) {
+        alert("Por favor, insira um CEP válido com 8 dígitos.");
+        return;
+    }
+
+    try {
+        // chama a rota do flask para buscar o CEP
+        const response = await fetch(`/buscar_cep?cep=${cep}`);
+        
+        if (!response.ok) {
+            const errorData = await response.json();
+            alert(errorData.erro || "Erro ao buscar o CEP.");
+            return;
+        }
+
+        const data = await response.json();
+
+        // preenche os campos com os dados retornados
+        streetInput.value = data.logradouro || "";
+        complementInput.value = data.complemento || "";
+        cityInput.value = data.cidade || "";
+        stateInput.value = data.estado || "";
+    } catch (error) {
+        console.error("Erro ao buscar o CEP:", error);
+        alert("Houve um erro ao buscar o CEP. Tente novamente.");
+    }
+}
+
 </script>
 
